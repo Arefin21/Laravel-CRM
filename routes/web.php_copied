@@ -1,0 +1,419 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Auth\RegisterController;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Subscriber Signin Part
+|--------------------------------------------------------------------------
+*/
+Route::get('/', function () {
+    if(Auth::check()){return Redirect::to('home');}
+
+    return view('Member.signup');});
+
+Route::get('/cancel-response',[MemberController::class, 'index', ['name' => 'cancel-response']]);
+Route::get('/signin',[MemberController::class, 'Signin', ['name' => 'signin']]);
+//Route::get('/OtpSMS',[MemberController::class, 'Otpsms', ['name' => 'otpsms']]);
+Route::post('/signin',  ['uses' => 'MemberController@Signin', 'as' => 'signin']);
+Route::get('/verify',[RegisterController::class, 'verifyUser', ['name' => 'verify.user']]);
+
+//Route::post('/verify/otp',[RegisterController::class, 'verifyotp', ['name' => 'verify.otp']]);
+Route::post('/verify/otp', [App\Http\Controllers\Auth\RegisterController::class, 'verifyotp'])->name('verify.otp');
+Route::post('/resend/otp', [App\Http\Controllers\Auth\RegisterController::class, 'resendotp'])->name('resend.otp');
+Route::post('/verify/otpreset', [App\Http\Controllers\Auth\RegisterController::class, 'otpreset'])->name('verify.otpreset');
+
+Route::get('/OtpSMS/{mobile}', [App\Http\Controllers\MemberController::class, 'Otpsms'])->name('otpsms');
+Route::get('/otpreset', [App\Http\Controllers\MemberController::class, 'otpreset'])->name('otpreset');
+Auth::routes();
+/*
+|--------------------------------------------------------------------------
+| END Subscriber Signin Part
+|--------------------------------------------------------------------------
+*/
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Subscriber Registration Step
+|--------------------------------------------------------------------------
+*/
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('/second_step', [App\Http\Controllers\RegistrationController::class, 'second_step'])->name('second_step');
+    Route::get('/third_step', [App\Http\Controllers\RegistrationController::class, 'third_step'])->name('third_step');
+    Route::get('/fourth_step', [App\Http\Controllers\RegistrationController::class, 'fourth_step'])->name('fourth_step');
+    Route::get('/fifth_step', [App\Http\Controllers\RegistrationController::class, 'fifth_step'])->name('fifth_step');
+    Route::get('/sixth_step', [App\Http\Controllers\RegistrationController::class, 'sixth_step'])->name('sixth_step');
+
+
+    Route::post('/subscriber_registration', [App\Http\Controllers\RegistrationController::class, 'store'])->name('registration-form');
+    Route::post('/first_form', [App\Http\Controllers\RegistrationController::class, 'first_update'])->name('first-form');
+    Route::post('/personal-form', [App\Http\Controllers\RegistrationController::class, 'personal_update'])->name('personal-form');
+
+    Route::post('/second_form', [App\Http\Controllers\RegistrationController::class, 'second_update'])->name('second-form');
+    Route::post('/familydetails_form', [App\Http\Controllers\RegistrationController::class, 'familydetails_update'])->name('familydetails-form');
+
+    Route::post('/third_form', [App\Http\Controllers\RegistrationController::class, 'third_update'])->name('third-form');
+    Route::post('/incomedetails', [App\Http\Controllers\RegistrationController::class, 'incomedetails_update'])->name('incomedetails-form');
+
+    Route::post('/fourth_form', [App\Http\Controllers\RegistrationController::class, 'fourth_update'])->name('fourth-form');
+    Route::post('/CompanyInformation', [App\Http\Controllers\RegistrationController::class, 'companyinformation_update'])->name('CompanyInformation-form');
+
+    Route::post('/fifth_form', [App\Http\Controllers\RegistrationController::class, 'fifth_update'])->name('fifth-form');
+    Route::post('/reference_form', [App\Http\Controllers\RegistrationController::class, 'reference_update'])->name('reference-form');
+    Route::post('/upload_form', [App\Http\Controllers\RegistrationController::class, 'upload_update'])->name('upload-form');
+
+
+    Route::post('/sixth_form', [App\Http\Controllers\RegistrationController::class, 'sixth_update'])->name('sixth-form');
+/*
+|--------------------------------------------------------------------------
+| END Subscriber Registration Step
+|--------------------------------------------------------------------------
+*/
+
+                /*
+               |Subscriber Dashboard
+               */
+        Route::get('Subscriber/SubscriberDashboard', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'index'])->name('nonsubscriber-dashboard');
+
+
+        /*
+          |Non-Subscriber Dashboard
+          */
+        Route::get('Non-Subscriber-Dashboard', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonindex'])->name('non-subscriber-dashboard');
+        Route::get('Non-Subscriber/Seminar', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSeminar'])->name('non-Subscriber.Seminar');
+        Route::get('Non-Subscriber/Seminar/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_seminar_details'])->name('non-Subscriber_seminar_details');
+        Route::post('/non_seminar-shurjopay-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'non_seminar_surjopay_submit'])->name('non-shurjopay-submission');
+        Route::get('/payment-response', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'payment_response'])->name('payment-response');
+        Route::get('/non_seminar-payement-submission/{id}/{seminar_id}/{name}/{email}/{amount}/{tx_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'non_seminar_payment_submit'])->name('nonseminar-payment-submission');
+        Route::get('Non-Subscriber/seminar/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'non_payment_success'])->name('non-seminar-payment_success');
+        Route::get('Non-Subscriber/seminar/payment_faild', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'non_payment_failed'])->name('non-seminar-payment_faild');
+        Route::get('Subscriber/seminar/payment_faild', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'payment_failed'])->name('seminar-payment_faild');
+
+        Route::get('Non-Subscriber/Certificate', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonCertificate'])->name('nonCertificate');
+        Route::get('Non-Seminar/Certificate/{subscribe_details}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSeminar_certificate_details'])->name('nonSeminar_certificate_details');
+        Route::get('Non-Subscriber/Payment-History', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonPaymentHistory'])->name('nonPayment.history');
+        Route::get('Non-Subscriber/receipt/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscriber_payment_Receipt'])->name('nonSubscriber_payment_Receipt');
+        Route::get('Non-Subscriber/invoice/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_payement_invoice'])->name('nonSubscriber_payment_invoice');
+
+        Route::get('Non-Seminar/Payment/receipt/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSeminar_payment_Receipt'])->name('nonSeminar_payment_Receipt');
+        Route::get('Non-Seminar/Payment/invoice/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSeminar_payment_invoice'])->name('nonSeminar_payment_invoice');
+        Route::get('Non-Subscriber/Payment', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonPayment'])->name('nonPayment');
+        Route::get('Non-Subscriber/Payment/{subscribe_details}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_payement_details'])->name('nonSubscriber_payment_details');
+        Route::post('/Non-subscription-payement-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonsubscription_submit'])->name('nonsubscription-payment-submission');
+        Route::get('Non/Subscriber/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonpayment_success'])->name('nonpayment_success');
+        Route::get('Non/Subscriber/Seminar/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_seminar_details'])->name('nonSubscriber_seminar_details');
+        Route::get('Non-Subscriber/Certificate/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscriber_certificate_details'])->name('nonSubscriber_certificate_details');
+
+        Route::get('Non-Subscriber/home', [App\Http\Controllers\HomeController::class, 'noindex'])->name('nohome');
+        Route::post('Non/subscriber_registration', [App\Http\Controllers\RegistrationController::class, 'nonstore'])->name('nonregistration-form');
+        Route::post('Non-Subscriber/first_form', [App\Http\Controllers\RegistrationController::class, 'nonfirst_update'])->name('nonfirst-form');
+        Route::get('Non-Subscriber/second_step', [App\Http\Controllers\RegistrationController::class, 'nonsecond_step'])->name('nonsecond_step');
+        Route::post('Non-Subscriber/second_form', [App\Http\Controllers\RegistrationController::class, 'nonsecond_update'])->name('nonsecond-form');
+        Route::get('Non-Subscriber/third_step', [App\Http\Controllers\RegistrationController::class, 'nonthird_step'])->name('nonthird_step');
+        Route::post('Non-Subscriber/third_form', [App\Http\Controllers\RegistrationController::class, 'nonthird_update'])->name('nonthird-form');
+        Route::post('Non-Subscriber/fourth_form', [App\Http\Controllers\RegistrationController::class, 'nonfourth_update'])->name('nonfourth-form');
+        Route::post('Non-Subscriber/fifth_form', [App\Http\Controllers\RegistrationController::class, 'nonfifth_update'])->name('nonfifth-form');
+        Route::post('Non-Subscriber/sixth_form', [App\Http\Controllers\RegistrationController::class, 'nonsixth_update'])->name('nonsixth-form');
+        /*
+        |END Non-Subscriber Dashboard
+        */
+
+        Route::get('Subscriber/SubscriberDashboard', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'index'])->name('subscriber-dashboard');
+
+        Route::get('Subscriber/PersonalInformation', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'PersonalInformation'])->name('PersonalInformation');
+        Route::get('Subscriber/FamilyDetails', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'FamilyDetails'])->name('FamilyDetails');
+        Route::get('Subscriber/IncomeDetails', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'IncomeDetails'])->name('IncomeDetails');
+        Route::get('Subscriber/CompanyInformation', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'CompanyInformation'])->name('CompanyInformation');
+        Route::get('Subscriber/Reference', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Reference'])->name('Reference');
+        Route::get('Subscriber/Upload', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Upload'])->name('Upload');
+        Route::get('Subscriber/Payment', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Payment'])->name('Payment');
+        Route::get('Subscriber/Payment-History', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'PaymentHistory'])->name('Payment.history');
+        Route::get('Subscriber/invoice/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscribe_payement_invoice'])->name('Subscriber_payment_invoice');
+        Route::get('Seminar/Payment/invoice/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Seminar_payment_invoice'])->name('Seminar_payment_invoice');
+        Route::get('Subscription/Payment/invoice/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscription_payment_invoice'])->name('Subscription_payment_invoice');
+        Route::get('Subscriber/receipt/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscriber_payment_Receipt'])->name('Subscriber_payment_Receipt');
+        Route::get('Seminar/Payment/receipt/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Seminar_payment_Receipt'])->name('Seminar_payment_Receipt');
+        Route::get('Subscription/Payment/receipt/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscription_payment_Receipt'])->name('Subcription_payment_Receipt');
+        Route::get('pdfview-download',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'pdfview'])->name('pdfview');
+        Route::get('invoicepdfview-download/{seminar_id}',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'invoicepdfview'])->name('invoicepdfview');
+        Route::get('invoicepdfview-subscription_download/{seminar_id}',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subsinvoicepdfview'])->name('subscriptioninvoicepdfview');
+        Route::get('receipt-download',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'receiptview'])->name('receiptview');
+        Route::get('seminar-receipt-download/{seminar_id}',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'seminarreceiptview'])->name('seminarreceiptview');
+        Route::get('subscription-receipt-download/{seminar_id}',[App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subscriptionreceiptview'])->name('subscriptionreceiptview');
+
+        Route::get('Subscriber/Payment/{year}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscribe_payement_details'])->name('Subscriber_payment_details');
+
+
+        Route::get('admin/subscriber/notice-details/{slug}', [App\Http\Controllers\Superadmin\NoticeController::class, 'details'])->name('notice.details');
+        Route::get('admin/subscriber/notice/allsub', [App\Http\Controllers\Superadmin\NoticeController::class, 'allsub'])->name('notice.allsub');
+        Route::get('admin/subscriber/announcement-details/{slug}', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'details'])->name('announcement.details');
+        Route::get('admin/subscriber/announcement/allsub', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'allsub'])->name('announcement.allsub');
+        Route::get('admin/nonsubscriber/announcement-details/{slug}', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'nondetails'])->name('nonannouncement.details');
+        Route::get('admin/nonsubscriber/announcemen/all', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'all'])->name('nonannouncement.all');
+        Route::get('admin/nonsubscriber/event-details/{slug}', [App\Http\Controllers\Superadmin\EventController::class, 'nondetails'])->name('nonevent.details');
+        Route::get('admin/subscriber/event-details/{slug}', [App\Http\Controllers\Superadmin\EventController::class, 'details'])->name('event.details');
+        Route::get('admin/subscriber/event/allsub', [App\Http\Controllers\Superadmin\EventController::class, 'allsub'])->name('event.allsub');
+        Route::get('admin/nonsubscriber/even/all', [App\Http\Controllers\Superadmin\EventController::class, 'all'])->name('nonevent.all');
+        Route::get('admin/nonsubscriber/notice-details/{slug}', [App\Http\Controllers\Superadmin\NoticeController::class, 'nondetails'])->name('nonnotice.details');
+        Route::get('admin/nonsubscriber/notice/all', [App\Http\Controllers\Superadmin\NoticeController::class, 'all'])->name('nonnotice.all');
+
+        //Route::get('Subscriber/Seminar/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscribe_seminar_details'])->name('Subscriber_seminar_details');
+
+        Route::get('Subscriber/Subscriptionfee/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscribe_subscription_details'])->name('Subscriber_subscription_details');
+        Route::get('Non-Subscriber/Subscriptionfee/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_subscription_details'])->name('nonSubscriber_subscription_details');
+
+        Route::get('Non-Subscriber/Renew/Subscriptionfee/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonSubscribe_subscription_details_renew'])->name('nonSubscriber_subscription_details_renew');
+        /*
+        |END Subscriber Dashboard
+        */
+
+        /*
+         |Subscription Fees
+        */
+        Route::post('/subscription-payement-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subscription_submit_shurjopay'])->name('subscription-payment-submission');
+        Route::get('Subscriber/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'payment_success'])->name('payment_success');
+        /*
+         |END Subscription Fees
+        */
+        /*
+         |Subscrber Certificates
+        */
+
+        Route::get('Subscriber/Certificate', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Certificate'])->name('Certificate');
+        Route::get('Subscriber/Certificate/{seminar_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscriber_certificate_details'])->name('Subscriber_certificate_details');
+
+        Route::get('Seminar/Certificate/{subscribe_details}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Seminar_certificate_details'])->name('Seminar_certificate_details');
+        Route::get('Subscription/Certificate/{subscribe_details}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscription_certificate_details'])->name('Subscription_certificate_details');
+        Route::get('Non/Subscription/Certificate/{subscribe_details}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscription_certificate_details_non'])->name('non_Subscription_certificate_details');
+
+        /*
+         |END Subscrber Certificates
+        */
+
+        /*
+         |Subscrber Seminar
+        */
+        Route::get('Subscriber/Seminar', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Seminar'])->name('Subscriber.Seminar');
+
+        Route::get('Subscriber/Seminar/{id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'Subscribe_seminar_details'])->name('Subscriber_seminar_details');
+        /*
+         |End Subscrber Seminar
+        */
+        /*
+        |Subscription Fees
+        */
+
+
+        Route::post('/seminar-shurjopay-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'seminar_surjopay_submit'])->name('shurjopay-submission');
+        Route::post('subscriptionfee-shurjopay-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subfee_surjopay_submit'])->name('sub_shurjopay-submission');
+        Route::post('Non/subscriptionfee-shurjopay-submission', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonsubfee_surjopay_submit'])->name('nonsub_shurjopay-submission');
+
+        Route::get('/seminar-payement-submission/{id}/{seminar_id}/{name}/{email}/{amount}/{tx_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'seminar_payment_submit'])->name('seminar-payment-submission');
+        Route::get('/subscriber-fee-payement-submission/{id}/{subscriptionid}/{name}/{email}/{amount}/{year}/{tx_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subfee_payment_submit'])->name('subfees-payment-submission');
+        Route::get('Non/subscriber-fee-payement-submission/{id}/{subscriptionid}/{name}/{email}/{amount}/{year}/{subscriber_number}/{tx_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonsubfee_payment_submit'])->name('nonsubfees-payment-submission');
+        Route::get('/subscriber-payement-submission/{id}/{year}/{name}/{email}/{amount}/{tx_id}', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subscriber_payment_submit'])->name('subscriber-payment-submission');
+
+
+        Route::get('Subscriber/seminar/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'payment_success'])->name('seminar-payment_success');
+        Route::get('Subscriber/Subscription/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'subscriber_payment_success'])->name('subscriber-payment_success');
+        Route::get('NonSubscriber/Subscription/payment_success', [App\Http\Controllers\Subscriber\SubscriberDashboardController::class, 'nonsubscriber_payment_success'])->name('nonsubscriber-payment_success');
+        /*
+         |END Subscription Fees
+        */
+
+
+});
+
+/*
+    |--------------------------------------------------------------------------
+    | END Subscriber Registration Step
+    |--------------------------------------------------------------------------
+    */
+Route::group(['middleware' => 'is_admin'], function () {
+
+Route::get('admin/home', [App\Http\Controllers\Superadmin\SuperadminController::class, 'dashboard'])->name('admin.home');
+
+Route::get('admin/subscriber/pendinglist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'pendinglist'])->name('admin.pendinglist');
+Route::get('admin/subscriber/renewed21', [App\Http\Controllers\Superadmin\SuperadminController::class, 'renewed21'])->name('admin.renewed21');
+Route::get('admin/subscriber/expired', [App\Http\Controllers\Superadmin\SuperadminController::class, 'expired'])->name('admin.expired');
+
+Route::get('admin/subscriber/subscriberlist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'subscriberlist'])->name('admin.subscriberlist');
+Route::get('admin/subscriber/paidsubscriberlist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'paidsubscriberlist'])->name('admin.paidsubscriberlist');
+
+Route::get('admin/subscriber/paid-details/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'paid_details'])->name('paid.details');
+
+//Route::get('admin/subscriber/paid-details/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'paid_details'])->name('paid.details');
+
+Route::get('admin/subscriber/paid-detailss/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'paid_details2'])->name('paid.details2');
+
+Route::get('admin/subscriber/rejectedlist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'rejectedlist'])->name('admin.rejectedlist');
+Route::get('admin/subscriber/pending-details/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'pending_details'])->name('pending.details');
+Route::post('admin/subscriber/status-change/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'status_update'])->name('status-change');
+Route::post('admin/subscriber/subscriber-number/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'subscriber_number_update'])->name('subscriber.number');
+
+Route::get('admin/userlist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'userlist'])->name('admin.userlist');
+Route::post('admin/userlist/search', [App\Http\Controllers\Superadmin\SuperadminController::class, 'userlistsearch'])->name('admin.userlist.search');
+
+Route::get('admin/nonsubscriberlist', [App\Http\Controllers\Superadmin\SuperadminController::class, 'nonsubscriberuserlist'])->name('nonsub.userlist');
+Route::get('admin/nonsubscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'export'])->name('nonsub.userlistexport');
+Route::get('admin/paidsubscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'paidexport'])->name('paid.userlistexport');
+
+Route::get('admin/dbitscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'dbidexport'])->name('paid.dbitlistexport');
+
+Route::get('admin/rejectsubscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'rejectexport'])->name('reject.userlistexport');
+Route::get('admin/pendingsubscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'pendingexport'])->name('pending.userlistexport');
+    Route::get('admin/seminarlistexport/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'seminarexport'])->name('seminar.userlistexport');
+
+Route::get('admin/non_subscriberlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'nonexport'])->name('non.userlistexport');
+Route::get('admin/subsexportlistexport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'reportsubexport'])->name('report.subsexport');
+
+Route::get('admin/useredit/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'useredit'])->name('user.edit');
+Route::post('admin/user/password-change/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'password_change'])->name('user-password-change');
+Route::get('admin/charts', [App\Http\Controllers\ChartController::class, 'index'])->name('charts');
+//Route::get('admin/charts', 'ChartController@index')->name('charts');
+/*
+|Subscriber Notice
+*/
+Route::get('admin/subscriber/notice/create', [App\Http\Controllers\Superadmin\NoticeController::class, 'create'])->name('admin.notice.create');
+Route::post('admin/subscriber/notice/store', [App\Http\Controllers\Superadmin\NoticeController::class, 'store'])->name('notice.store');
+Route::get('admin/subscriber/notice', [App\Http\Controllers\Superadmin\NoticeController::class, 'index'])->name('admin.notice');
+Route::get('admin/subscriber/notice_edit/{id}', [App\Http\Controllers\Superadmin\NoticeController::class, 'edit'])->name('notice.edit');
+Route::post('admin/subscriber/notice-update/{id}', [App\Http\Controllers\Superadmin\NoticeController::class, 'update'])->name('notice.update');
+Route::get('admin/subscriber/delete/{id}', [App\Http\Controllers\Superadmin\NoticeController::class, 'destroy'])->name('notice.delete');
+
+/*
+|End Subscriber Notice
+*/
+
+    /*
+   |Subscriber Announcement
+   */
+    Route::get('admin/subscriber/announcement/create', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'create'])->name('admin.announcement.create');
+    Route::post('admin/subscriber/announcement/store', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'store'])->name('announcement.store');
+    Route::get('admin/subscriber/announcement', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'index'])->name('admin.announcement');
+    Route::get('admin/subscriber/announcement_edit/{id}', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'edit'])->name('announcement.edit');
+    Route::post('admin/subscriber/announcement-update/{id}', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'update'])->name('announcement.update');
+    Route::get('admin/subscriber/announcement/delete/{id}', [App\Http\Controllers\Superadmin\AnnouncementController::class, 'destroy'])->name('announcement.delete');
+
+    /*
+    |End Subscriber Announcement
+    */
+
+    /*
+   |Subscriber Event
+   */
+    Route::get('admin/subscriber/event/create', [App\Http\Controllers\Superadmin\EventController::class, 'create'])->name('admin.event.create');
+    Route::post('admin/subscriber/event/store', [App\Http\Controllers\Superadmin\EventController::class, 'store'])->name('event.store');
+    Route::get('admin/subscriber/event', [App\Http\Controllers\Superadmin\EventController::class, 'index'])->name('admin.event');
+    Route::get('admin/subscriber/event_edit/{id}', [App\Http\Controllers\Superadmin\EventController::class, 'edit'])->name('event.edit');
+    Route::post('admin/subscriber/event-update/{id}', [App\Http\Controllers\Superadmin\EventController::class, 'update'])->name('event.update');
+    Route::get('admin/subscriber/event/delete/{id}', [App\Http\Controllers\Superadmin\EventController::class, 'destroy'])->name('event.delete');
+
+    /*
+    |End Subscriber Event
+    */
+
+/*
+|Subscription Fee
+*/
+Route::get('admin/subscription_fees', [App\Http\Controllers\Superadmin\SuperadminController::class, 'subscription_fees'])->name('subscription.fees');
+Route::post('admin/subscriber/subscription_fees-update/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'subscription_fees_update'])->name('subscription_fees.update');
+
+/*
+|END Subscription Fee
+*/
+
+
+/*
+ * Seminar / Workshop / Training
+ *
+ */
+
+Route::get('admin/subscriber/seminar/create', [App\Http\Controllers\Superadmin\SeminarController::class, 'create'])->name('admin.seminar.create');
+Route::get('admin/subscriber/subscription/create', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptioncreate'])->name('admin.subscription.create');
+Route::post('admin/subscriber/seminar/store', [App\Http\Controllers\Superadmin\SeminarController::class, 'store'])->name('seminar.store');
+Route::post('admin/subscriber/seminar/store/sms/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'smsstore'])->name('seminar.sms.store');
+Route::post('admin/subscriber/AllUser/store/sms/', [App\Http\Controllers\Superadmin\SuperadminController::class, 'smsstore'])->name('alluser.sms.store');
+Route::post('admin/subscriber/subscription/store', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptionstore'])->name('subscriptionfee.store');
+Route::get('admin/subscriber/seminar', [App\Http\Controllers\Superadmin\SeminarController::class, 'index'])->name('admin.seminar');
+Route::get('admin/subscriber/subscription', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptionindex'])->name('admin.subscription.fee');
+Route::get('admin/subscriber/seminar_edit/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'edit'])->name('seminar.edit');
+Route::get('admin/subscriber/subscription_edit/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptionedit'])->name('subscriptionfee.edit');
+Route::get('admin/subscriber/certificateupload/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'certificateupload'])->name('certificate.upload');
+Route::get('admin/subscriber/subscription/certificateupload/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptioncertificateupload'])->name('subscriptioncertificate.upload');
+Route::post('admin/subscriber/seminar_edit-update/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'update'])->name('seminar.update');
+Route::post('admin/subscriber/certificate-update/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'certificateupdate'])->name('certificate.update');
+Route::post('admin/subscriber/subscriptioncertificate-update/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptioncertificateupdate'])->name('subscriptioncertificate.update');
+Route::get('admin/seminar/delete/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'destroy'])->name('seminar.delete');
+Route::get('admin/subscriptionfee/delete/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'subscriptiondestroy'])->name('subscriptionfee.delete');
+Route::get('admin/subscriber/paid_list/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'paid_list'])->name('seminar.subscriber.list');
+Route::get('admin/subscriber/add_user/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'add_paid_list'])->name('seminar.add.user.list');
+Route::post('admin/user/seminar/store', [App\Http\Controllers\Superadmin\SeminarController::class, 'user_store'])->name('user.store');
+
+Route::get('admin/subscriber/certi_list/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'certi_list'])->name('certi.subscriber.list');
+Route::get('admin/subscriber/seminar-paid-details/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'seminar_paid_details'])->name('seminar.paid.details');
+
+    Route::get('admin/subscriber/sms/create/{id}', [App\Http\Controllers\Superadmin\SeminarController::class, 'createsms'])->name('send.seminar.sms');
+    Route::get('admin/subscriber/sms/create/', [App\Http\Controllers\Superadmin\SuperadminController::class, 'createsms'])->name('send.alluser.sms');
+/*
+* END Seminar / Workshop / Training
+*
+*/
+
+    /*
+    * END Seminar / Workshop / Training
+    *
+    */
+    Route::get('admin/settings', [App\Http\Controllers\Superadmin\SuperadminController::class, 'settings'])->name('admin.settings');
+    Route::get('admin/admin/delete/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'admindelete'])->name('admin.delete');
+    Route::get('admin/admin/admin_edit/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'adminedit'])->name('admin.edit');
+    Route::get('admin/adminadd', [App\Http\Controllers\Superadmin\SuperadminController::class, 'adminadd'])->name('admin.add');
+    Route::post('admin/admin/password-change/{id}', [App\Http\Controllers\Superadmin\SuperadminController::class, 'admin_password_change'])->name('admin-password-change');
+    Route::post('admin/admin/adminadd', [App\Http\Controllers\Superadmin\SuperadminController::class, 'admin_add_settings'])->name('adminadd.settings');
+    Route::get('admin/report', [App\Http\Controllers\Superadmin\SuperadminController::class, 'report'])->name('admin.report');
+    Route::get('admin/report/new', [App\Http\Controllers\Superadmin\SuperadminController::class, 'report_new'])->name('admin.report.new');
+
+    Route::get('admin/graphicalreport', [App\Http\Controllers\Superadmin\SuperadminController::class, 'graphicalreport'])->name('admin.graphicalreport');
+    Route::post('Superadmin/report-search', [App\Http\Controllers\Superadmin\SuperadminController::class, 'report_search'])->name('report.search');
+    Route::post('Superadmin/report-search/new', [App\Http\Controllers\Superadmin\SuperadminController::class, 'report_search_new'])->name('report.search.new');
+    Route::post('Superadmin/graphicalreport-search', [App\Http\Controllers\ChartController::class, 'index'])->name('graphicalreport.search');
+    /*
+    * END Seminar / Workshop / Training
+    *
+    */
+
+});
+
+
+/*
+|END Subscriber Dashboard
+*/
+Route::group(['middleware' => 'is_moderator'], function () {
+
+    Route::get('subadmin/home', [App\Http\Controllers\Superadmin\SuperadminController::class, 'dashboard'])->name('subadmin.home');
+    Route::get('sub/subsubscriberlist', [App\Http\Controllers\Subadmin\SubadminController::class, 'nonsubscriberuserlist'])->name('sub.userlist');
+    Route::get('sub/non_subscriberlistexport', [App\Http\Controllers\Subadmin\SubadminController::class, 'nonexport'])->name('sub.userlistexport');
+    Route::get('sub/subscriber/subscriberlist', [App\Http\Controllers\Subadmin\SubadminController::class, 'subscriberlist'])->name('sub.subscriberlist');
+    Route::get('sub/subscriber/pending-details/{id}', [App\Http\Controllers\Subadmin\SubadminController::class, 'pending_details'])->name('sub.pending.details');
+    Route::post('sub/subscriber/status-change/{id}', [App\Http\Controllers\Subadmin\SubadminController::class, 'status_update'])->name('sub_status-change');
+    Route::get('sub/subscriber/pendinglist', [App\Http\Controllers\Subadmin\SubadminController::class, 'pendinglist'])->name('sub.pendinglist');
+    Route::get('sub/subscriber/rejectedlist', [App\Http\Controllers\Subadmin\SubadminController::class, 'rejectedlist'])->name('sub.rejectedlist');
+});
+

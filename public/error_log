@@ -1,0 +1,9 @@
+[28-Oct-2021 11:17:50 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 7.3.0". You are running 7.1.33. in /home/weforumbd/public_html/vendor/composer/platform_check.php on line 24
+[30-Oct-2024 10:00:32 UTC] PHP Warning:  require(/home/anotheruser/software.nurjahan.com.bd/vendor/composer/../symfony/polyfill-php80/bootstrap.php): Failed to open stream: No such file or directory in /home/anotheruser/software.nurjahan.com.bd/vendor/composer/autoload_real.php on line 41
+[30-Oct-2024 10:00:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/anotheruser/software.nurjahan.com.bd/vendor/composer/../symfony/polyfill-php80/bootstrap.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home/anotheruser/software.nurjahan.com.bd/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home/anotheruser/software.nurjahan.com.bd/vendor/composer/autoload_real.php(45): {closure}('a4a119a56e50fbb...', '/home/anotherus...')
+#1 /home/anotheruser/software.nurjahan.com.bd/vendor/autoload.php(25): ComposerAutoloaderInit462461a3a4d44ef88f5e80f00c4cd99d::getLoader()
+#2 /home/anotheruser/software.nurjahan.com.bd/public/index.php(34): require('/home/anotherus...')
+#3 {main}
+  thrown in /home/anotheruser/software.nurjahan.com.bd/vendor/composer/autoload_real.php on line 41
