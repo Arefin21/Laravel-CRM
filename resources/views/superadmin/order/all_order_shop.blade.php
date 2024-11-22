@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>All Order List | Nurjahan Bazar</title>
+    <title>CRM | Client Issue Details</title>
 @endsection
 @section('main')
 
@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">All Order List</h4>
+                        <h4 class="card-title ">Issue Details</h4>
                     </div>
 
                     <!-- data table -->
@@ -30,42 +30,70 @@
                             <div class="table-responsive">
 
                                 <table id="warehouseTable" class="table table-hover" cellspacing="0" width="100%">
-                                    <thead class="text-primary">
-                                    <tr>
-                                        <th> Date </th>
-{{--                                        <th>Serial </th>--}}
-                                        <th>Order Number </th>
-                                        <th> Shop Name </th>
-                                        <th> Total Amount </th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($order as $key=>$list)
+                                    {{-- @foreach($adminlead as $list) --}}
+                                    <table class="table table-bordered">
                                         <tr>
-                                            <td> {{ $list->created_at->format('F d, Y') }} </td>
-{{--                                            <td> {{ $key }} </td>--}}
-                                            <td> @if($list->status != 'Opening')
-                                                    #{{ $list->id }}
+                                            <td><strong>Date:</strong></td>
+                                            <td>{{ $adminlead->created_at->format('m/d/Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td>{{ $adminlead->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Company:</strong></td>
+                                            <td>{{ $adminlead->company_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Designation:</strong></td>
+                                            <td>{{ $adminlead->designation }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Mobile:</strong></td>
+                                            <td>{{ $adminlead->phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Email:</strong></td>
+                                            <td>{{ $adminlead->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Location:</strong></td>
+                                            <td>{{ $adminlead->location }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Service:</strong></td>
+                                            <td>{{ \App\Models\Warehouse::find($adminlead->service)->name ?? 'No service found' }}</td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <td><strong>Assign For:</strong></td>
+                                            <td>
+                                              
+                                                    {{ $adminlead->assign_for }}
+                                                
+                                            </td>
+                                        </tr> --}}
+                                        <tr>
+                                            <td><strong>Assign For:</strong></td>
+                                            <td>
+                                                @if($adminlead->assignedUser)
+                                                    {{ $adminlead->assignedUser->name }}
                                                 @else
-                                                    Opening
-                                                @endif </td>
-                                            <td> {{ \App\Models\SrShop::where('id', $list->shop_id)->first()->shopName }} </td>
-                                            <td> {{ $list->final_total }} </td>
-                                            <td class="td-actions text-right">
-
-
-                                                <button type="button" onclick="window.location='{{ route('admin.order.success', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="View Order Details">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-
+                                                    Not Assigned
+                                                @endif
                                             </td>
                                         </tr>
-                                    @endforeach
-
-
-                                    </tbody>
+                                        
+                                        
+                                        <tr>
+                                            <td><strong>Comments:</strong></td>
+                                            <td>{{ $adminlead->comments }}</td>
+                                        </tr>
+                                    </table>
+                                    <br> <!-- Adds spacing between tables -->
+                                {{-- @endforeach --}}
                                 </table>
+
+                                
                             </div>
                         </div>
                     </div>

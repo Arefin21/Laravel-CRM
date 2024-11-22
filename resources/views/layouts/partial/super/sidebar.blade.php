@@ -22,28 +22,48 @@
 
                             <li class="sidebar-dropdown">
                                 <a href="#">
-                                    <i class="far fa-gem"></i>
-                                    <span>Setting</span>
+                                    <i class="fa fa-list"></i>
+                                    <span>Create Lead</span>
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="{{ route('warehouse.index') }}">Wearhouse </a>
+                                            <a href="{{ route('admin.leads.create') }}">Create Lead</a>
                                         </li>
                                         <li>
+                                            <a href="{{ route('admin.leads.index') }}">Lead List</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-cogs"></i>
+                                    <span>Service Type</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('service.create') }}">Service Create </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('service.index') }}">View </a>
+                                        </li>
+                                        {{-- <li>
                                             <a href="{{ route('unit.index') }}">Unit Type</a>
                                         </li>
 
                                         <li>
                                             <a href="{{ route('purchasecompany.index') }}">Purchase Company Name</a>
-                                        </li>
+                                        </li> --}}
 
                                     </ul>
                                 </div>
                             </li>
 
 
-                            <li class="sidebar-dropdown">
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
                                     <span>Product</span>
@@ -53,7 +73,7 @@
 {{--                                        <li>--}}
 {{--                                            <a href="{{ route('purchasecompany.create') }}">Add Category</a>--}}
 {{--                                        </li>--}}
-                                        <li>
+                                        {{-- <li>
                                             <a href="{{ route('category.index') }}">All Category</a>
                                         </li>
 
@@ -62,8 +82,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="sidebar-dropdown">
+                            </li> --}} 
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
                                     <span>Warehouse</span>
@@ -108,20 +128,72 @@
                                     <i class="fa fa-globe"></i>
                                     <span>Order List</span>
                                 </a>
+                            </li> --}}
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-comment"></i>
+                                    <span>Comment Status</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('statuses.create') }}">Create</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('statuses.index') }}">View</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            
+
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-clock"></i>
+                                    <span>Recent Lead Issue</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('test.route') }}">View</a>
+                                        </li>
+                                        {{-- <li>
+                                            <a href="{{ route('admin.leads.index') }}">Lead List</a>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-user"></i>
+                                    <span>Support Admin</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        {{-- <li>
+                                            <a href="{{ route('admin.leads.create') }}">Create Lead</a>
+                                        </li> --}}
+                                        <li>
+                                            <a href="{{ route('supportadmin.leads.index') }}">View</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
 
                             <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
-                                    <span>SR</span>
+                                    <span>Create Admin</span>
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>
                                         <li>
-                                            <a href="{{ route('sradd.settings') }}">SR Registration</a>
+                                            <a href="{{ route('sradd.settings') }}">Admin Registration</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('sr.list') }}">All SR List</a>
+                                            <a href="{{ route('sr.list') }}">All Admin List</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -150,7 +222,7 @@
 
 
 
-                            <li class="sidebar-dropdown">
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
                                     <span>Income & Expense</span>
@@ -191,7 +263,7 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
 {{--                            <li>--}}
 {{--                                <a href="order-list.html">--}}

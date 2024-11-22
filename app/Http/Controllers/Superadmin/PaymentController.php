@@ -199,4 +199,17 @@ class PaymentController extends Controller
     {
         //
     }
+
+    public function getTodayLeads()
+
+{
+    return 'ok';
+    // $todayLeads = Lead::whereDate('created_at', Carbon::today())->get();
+
+    // if ($todayLeads->isEmpty()) {
+    //     return view('superadmin.leads.today_lead', ['message' => 'No leads found for today.']);
+    // }
+
+    // return view('superadmin.leads.today_lead', compact('todayLeads'));
+}
 }

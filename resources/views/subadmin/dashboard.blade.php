@@ -1,6 +1,6 @@
 @extends('layouts.subadmin')
 @section('title')
-    <title>Dashboard | SR Dashboard | Nurjahan Bazar</title>
+    <title>Dashboard | CRM | </title>
 @endsection
 
 @section('main')
@@ -9,24 +9,18 @@
             <!-- Summary Cards -->
             <div class="row">
                 <!-- Total Sale -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-header card-header-warning card-header-icon">
-                            <div class="card-icon">
-                                <i class="material-icons">content_copy</i>
-                            </div>
-                            <p class="card-category">Total Sale</p>
-                            <h3 class="card-title">{{ number_format($totalSale, 2) }} <small>tk</small></h3>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-success">
+                            <h4 class="card-title text-center">{{ Auth::user()->name ?? 'Guest' }}</h4>
                         </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                <a href="{{ route('sub.total.sale') }}">View More...</a>
-                            </div>
+                        <div class="card-body">
+                            <canvas id="dailySalesChart"></canvas>
                         </div>
                     </div>
                 </div>
                 <!-- Total Collection -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
+               {{-- <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="card card-stats">
                         <div class="card-header card-header-success card-header-icon">
                             <div class="card-icon">
@@ -75,13 +69,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> --}}
+            {{-- </div> --}}
 
             <!-- Charts -->
-            <div class="row">
+            {{-- <div class="row"> --}}
                 <!-- Daily Sales Chart -->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="card">
                         <div class="card-header card-header-success">
                             <h4 class="card-title">Daily Sales</h4>
@@ -93,16 +87,16 @@
                 </div>
 
                 <!-- Daily Collections Chart -->
-                <div class="col-md-6">
-                    <div class="card">
+                <div class="col-md-6"> --}}
+                    {{-- <div class="card">
                         <div class="card-header card-header-warning">
                             <h4 class="card-title">Daily Collections</h4>
                         </div>
                         <div class="card-body">
                             <canvas id="dailyCollectionsChart"></canvas>
                         </div>
-                    </div>
-                </div>
+                    </div> --}}
+                {{-- </div>
             </div>
         </div>
     </div>
@@ -148,5 +142,5 @@
                 }]
             }
         });
-    </script>
+    </script> --}}
 @endsection

@@ -1942,7 +1942,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .form-check-input {
-	position: absolute;
+	
 	margin-top: .3rem;
 	margin-left: -1.25rem
 }
@@ -11765,7 +11765,6 @@ fieldset[disabled][disabled] .has-rose .form-control {
 
 .bmd-form-group [class*=" bmd-label"],
 .bmd-form-group [class^=bmd-label] {
-	position: absolute;
 	pointer-events: none;
 	transition: all .3s ease
 }

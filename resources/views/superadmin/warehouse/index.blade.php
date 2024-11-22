@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>Warehouse List | Nurjahan Bazar</title>
+    <title>Service List | CRM</title>
 @endsection
 @section('main')
 
@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">All Warehouse List</h4>
+                        <h4 class="card-title ">All Service List</h4>
                     </div>
 
                     <!-- data table -->
@@ -35,7 +35,7 @@
                                     <thead class="text-primary">
                                     <tr>
                                         <th> Sl. </th>
-                                        <th>Warehouse Name </th>
+                                        <th>Service Type </th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                     </thead>
@@ -45,7 +45,7 @@
                                         <td> {{ $key+1 }} </td>
                                         <td> {{ $list->name }} </td>
                                         <td class="td-actions text-right">
-                                            <form id="delete-form-{{ $list->id }}" action="{{ route('warehouse.destroy', $list->id) }}" method="POST" style="display: none;">
+                                            <form id="delete-form-{{ $list->id }}" action="{{ route('service.destroy', $list->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
@@ -58,7 +58,7 @@
                                                 <i class="material-icons">close</i>
                                             </button>
 
-                                            <button type="button" onclick="window.location='{{ route('warehouse.edit', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="Edit list">
+                                            <button type="button" onclick="window.location='{{ route('service.edit', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="Edit list">
                                                 <i class="material-icons">edit</i>
                                             </button>
 

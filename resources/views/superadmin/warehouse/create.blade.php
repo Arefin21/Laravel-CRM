@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>Warehouse Add | Nurjahan Bazar</title>
+    <title>Service Add | CRM</title>
 @endsection
 @section('main')
 
@@ -13,18 +13,18 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Add Warehouse</h4>
+                        <h4 class="card-title ">Service</h4>
                     </div>
 
                     <div class="card-body">
-                        <form role="form" method="POST" action="{{ route('warehouse.store') }}">
+                        <form role="form" method="POST" action="{{ route('service.store') }}">
                             @csrf
                             <fieldset class="col-lg-12 border p-3 mb-3">
                                 <!-- <legend class="w-50 text-center main-title"><small class="text-uppercase font-weight-bold">Personal Information</small></legend> -->
 
                                 <div class="form-row justify-content-center">
                                     <div class="col-md-4 mb-6">
-                                        <label for="validationServer013">Warehouse Name</label>
+                                        <label for="validationServer013">Service Type</label>
                                         <span class="requierd-star">*</span>
                                         <span class="bmd-form-group">
                     <!-- Add old() method to retain the value after validation error -->

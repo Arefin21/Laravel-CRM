@@ -20,7 +20,7 @@
                     <div class="sidebar-menu">
                         <ul>
 
-                            <li class="sidebar-dropdown">
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
                                     <span>SR Client</span>
@@ -34,12 +34,12 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="sidebar-dropdown">
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
-                                    <span>Warehouse</span>
+                                    <span>Service</span>
                                 </a>
                                 <div class="sidebar-submenu">
                                     <ul>
@@ -62,9 +62,30 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
+
+
 
                             <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-list"></i>
+                                    <span>Create Lead</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('subadmin.leads.create') }}">Create Lead</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('subadmin.leads.index') }}">Lead List</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+
+
+                            {{-- <li class="sidebar-dropdown">
                                 <a href="#">
                                     <i class="far fa-gem"></i>
                                     <span>Order</span>
@@ -81,7 +102,7 @@
 
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

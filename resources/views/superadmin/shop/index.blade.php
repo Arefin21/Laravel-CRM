@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>Shop List | Nurjahan Bazar</title>
+    <title>CRM | Client List</title>
 @endsection
 @section('main')
 
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">All Shop List</h4>
+                        <h4 class="card-title ">Client List</h4>
                     </div>
 
                     <!-- Data Table -->
@@ -28,23 +28,26 @@
                                     <thead class="text-primary">
                                     <tr>
                                         <th> Sl. </th>
-                                        <th>Shop Name</th>
-                                        <th>Owner Name</th>
+                                        <th>Name</th>
+                                        <th>Company Name</th>
+                                        <th>Email</th>
                                         <th>Mobile</th>
-                                        <th>Address</th>
+                                        
+                                        <th>Location</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($srshop as $key=>$list)
+                                    @foreach($adminlead as $key=>$list)
                                         <tr>
                                             <td> {{ $key+1 }} </td>
-                                            <td> {{ $list->shopName }} </td>
-                                            <td> {{ $list->ownerName }} </td>
-                                            <td> {{ $list->Mobile }} </td>
-                                            <td> {{ $list->Adress }} </td>
+                                            <td> {{ $list->name }} </td>
+                                            <td> {{ $list->company_name }} </td>
+                                            <td> {{ $list->email }} </td>
+                                            <td> {{ $list->phone }} </td>
+                                            <td> {{ $list->location }} </td>
                                             <td class="td-actions text-right">
-                                                <button type="button" onclick="window.location='{{ route('super.payment.shop', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="View Payment Details">
+                                                {{-- <button type="button" onclick="window.location='{{ route('super.payment.shop', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="View Payment Details">
                                                     <i class="material-icons">credit_card</i>
                                                 </button>
 
@@ -54,11 +57,16 @@
 
                                                 <button type="button" rel="tooltip" title="Add Opening Account" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#OpeningAccountModal" data-shop-id="{{ $list->id }}" data-sr-id="{{ $list->srId }}" data-shop-name="{{ $list->shopName }}">
                                                     <i class="material-icons">add</i>
-                                                </button>
+                                                </button> --}}
 
                                                 <button type="button" onclick="window.location='{{ route('super.list.shop', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="View Order List">
                                                     <i class="material-icons">visibility</i>
                                                 </button>
+                                                
+                                                    <button type="button" onclick="window.location='{{ route('admin.comment.show', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="Track Customer Interaction">
+                                                        <i class="material-icons">comment</i>
+                                                    </button>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

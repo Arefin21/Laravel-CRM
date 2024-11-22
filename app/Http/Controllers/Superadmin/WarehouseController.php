@@ -47,7 +47,7 @@ class WarehouseController extends Controller
         $news = new Warehouse();
         $news->name = $request->name;
         $news->save();
-        return redirect()->route('warehouse.index')->with('successMsg','Warehouse Successfully Saved');
+        return redirect()->route('warehouse.index')->with('successMsg','Service Successfully Saved');
     }
 
     /**
@@ -107,7 +107,7 @@ class WarehouseController extends Controller
 
         $warehouse->name = $request->name;
         $warehouse->save();
-        return redirect()->route('warehouse.index')->with('successMsg','Warehouse Successfully Updated');
+        return redirect()->route('warehouse.index')->with('successMsg','Service Successfully Updated');
     }
 
     /**
@@ -120,6 +120,6 @@ class WarehouseController extends Controller
     {
         $warehouselist = Warehouse::find($id);
         $warehouselist->delete();
-        return redirect()->back()->with('dangerMsg','Warehouse Successfully Deleted');
+        return redirect()->back()->with('dangerMsg','Service Successfully Deleted');
     }
 }

@@ -10,6 +10,8 @@
     <script>window.location = "{{ route('admin.home') }}";</script>
 @elseif(auth()->user()->is_admin == 2)
     <script>window.location = "{{ route('subadmin.home') }}";</script>
+@elseif(auth()->user()->is_admin == 3)
+<script>window.location = "{{ route('admin.support') }}";</script>
 @endif
 
 

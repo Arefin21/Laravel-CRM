@@ -1,8 +1,10 @@
 @extends('Member.Member_master')
 @section('title')
 
-    <title>Login | Nurjahan Bazar</title>
+    <title>Login | CRM</title>
 @endsection
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 @section('signup')
     <div id="LoginForm">
@@ -43,14 +45,26 @@
                                     </span>
                             @enderror
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <input type="checkbox" autocomplete="off" class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}><label class="custom-control-label" for="__BVID__16">
                                 Remeber Me
-                        </div>
+                        </div> --}}
+                        
                         <div class="forgot">
-                            <a style="color: #222" href="{{ route('password.request') }}">Forgot password?</a>
+                            {{-- <a style="color: #222" href="{{ route('password.request') }}">Forgot password?</a> --}}
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
+                        {{-- <p>Or, Log in with</p> --}}
+                        {{-- <div class="social-login">
+                            {{-- {{ route('login.google') }} --}}
+                            {{-- <a href="#" class="social-btn google">
+                                <i class="fa-brands fa-google fa-lg" style="color: #f8c006;"></i> Google
+                            </a>
+                            <a href="#" class="social-btn facebook">
+                                <i class="fa-brands fa-facebook fa-lg" style="color: #74C0FC;"></i> Facebook
+                            </a>
+                        </div> --}} 
+                        
                     </form>
                 </div>
 
@@ -63,6 +77,41 @@
             margin-left: 24px;
 
         }
+
+
+        .social-login {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.social-btn {
+    display: inline-block;
+    width: 48%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.social-btn.google {
+    background-color: #db4437;
+}
+
+.social-btn.facebook {
+    background-color: #3b5998;
+}
+
+.social-btn.google:hover {
+    background-color: #c23322;
+}
+
+.social-btn.facebook:hover {
+    background-color: #2d4373;
+}
     </style>
 
     <!-- line modal -->

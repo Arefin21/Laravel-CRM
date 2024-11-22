@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>SR List | Nurjahan Bazar</title>
+    <title>Admin List | CRM</title>
 @endsection
 @section('main')
 
@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">All SR List</h4>
+                        <h4 class="card-title ">Admin List</h4>
                     </div>
 
                     <!-- data table -->
@@ -21,10 +21,10 @@
                     <div class="table-wrapper">
                         <div class="card-body">
 
-
+                            
 
                             <div class="add-button text-right">
-                                <a href="{{ route('sradd.settings') }}" class="btn btn-primary text-capitalize"><span>Add SR</span></a>
+                                <a href="{{ route('sradd.settings') }}" class="btn btn-primary text-capitalize"><span>Add Admin</span></a>
                             </div>
 
                             <div class="table-responsive">
@@ -41,14 +41,17 @@
                                     <tr>
                                         <th> Sl. </th>
                                         <th>Name </th>
-                                        <th>Phone </th>
+                                        <th>Designation </th>
+                                        {{-- <th>Email </th> --}}
+                                        {{-- <th>Phone </th>
                                         <th>Warehouse </th>
-                                        <th>Address </th>
-                                        <th>Sr Photo </th>
-                                        <th>Certificate </th>
+                                        <th>Address </th> --}}
+                                        {{-- <th>Admin Photo </th> --}}
+                                        {{-- <th>Certificate </th> --}}
 
-                                        <th class="text-right">Action</th>
-                                        <th class="text-right">Client List</th>
+                                        <th class="">Action</th>
+                                        <th class="">Client List</th>
+                                        {{-- <th class="">Issue Notes</th> --}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,11 +59,12 @@
                                         <tr>
                                             <td> {{ $key+1 }} </td>
                                             <td> {{ $list->name }} </td>
-                                            <td> {{ $list->mobile }} </td>
-                                            <td> {{ \App\Models\Warehouse::where('id',$list->warehouse)->first()->name }} </td>
+                                            <td> {{ $list->srAddress }} </td>
+                                            {{-- <td> {{ $list->eamil }} </td> --}}
+                                            {{-- <td> {{ \App\Models\Warehouse::where('id',$list->warehouse)->first() }} </td>
                                             <td> {{ $list->srAddress }} </td>
                                             <td> <img style="height:80px;width: 80px;" src="{{ asset('/') }}{{ $list->image }}"> </td>
-                                            <td> <img style="height:80px;width: 80px;" src="{{ asset('/') }}{{ $list->certificate }}"> </td>
+                                            <td> <img style="height:80px;width: 80px;" src="{{ asset('/') }}{{ $list->certificate }}"> </td> --}}
 
                                             <td class="td-actions text-left">
                                                 <button type="button" onclick="window.location='{{ route('sr.edit', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="Edit list">
@@ -80,16 +84,21 @@
                                                                 }">
                                                     <i class="material-icons">close</i>
                                                 </button>
-
+                                               
 
 
 
                                             </td>
                                             <td>
-                                                <button type="button" onclick="window.location='{{ route('admin.single.shop', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="See Client list">
+                                                <button type="button" onclick="window.location='{{ route('single.admin', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="See Client list">
                                                     <i class="material-icons">visibility</i>
                                                 </button>
                                             </td>
+                                            {{-- <td>
+                                                <button type="button" onclick="window.location='{{ route('admin.comment.show', $list->id) }}'" rel="tooltip" class="btn btn-primary btn-link btn-sm" title="Track Customer Interaction">
+                                                    <i class="material-icons">comment</i>
+                                                </button>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
 

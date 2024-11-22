@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Lead;
+use App\Models\User;
 use App\Models\Orders;
-use App\Models\OrderItem;
 use App\Models\StockIn;
+use App\Models\OrderItem;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +28,11 @@ class OrderController extends Controller
         $order  = Orders::where('user_id',Auth::id())->where('shop_id',$shop)->get();
         return view('subadmin.order.all_order_shop',compact('order'));
     }
-    public function orderlist_byshopadmin($shop){
-        $order  = Orders::where('shop_id',$shop)->get();
-        return view('superadmin.order.all_order_shop',compact('order'));
+    public function orderlist_byshopadmin($id){
+        //$order  = Orders::where('shop_id',$shop)->get();
+        $adminlead = Lead::find($id);
+        //$list = User::find($id);
+        return view('superadmin.order.all_order_shop',compact('adminlead',));
     }
 
 

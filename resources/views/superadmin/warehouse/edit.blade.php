@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>Warehouse Add | Nurjahan Bazar</title>
+    <title>Service | CRM</title>
 @endsection
 @section('main')
 
@@ -13,18 +13,18 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Edit Warehouse</h4>
+                        <h4 class="card-title ">Edit Serive</h4>
                     </div>
 
                     <div class="card-body">
-                        <form role="form" method="POST" action="{{ route('warehouse.update', $warehouse->id) }}">
+                        <form role="form" method="POST" action="{{ route('service.update', $warehouse->id) }}">
                         @csrf
                         @method('PUT') <!-- Use PUT or PATCH for updates -->
 
                             <fieldset class="col-lg-12 border p-3 mb-3">
                                 <div class="form-row justify-content-center">
                                     <div class="col-md-4 mb-6">
-                                        <label for="validationServer013">Warehouse Name</label>
+                                        <label for="validationServer013">Service Type </label>
                                         <span class="bmd-form-group">
                     <!-- Use old() method and warehouse data, with is-invalid class for validation -->
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $warehouse->name) }}" required>

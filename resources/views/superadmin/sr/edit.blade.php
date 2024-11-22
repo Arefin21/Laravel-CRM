@@ -1,6 +1,6 @@
 @extends('layouts.superadmin')
 @section('title')
-    <title>SR Edit | Nurjahan Bazar</title>
+    <title>Admin Edit | CRM</title>
 @endsection
 @section('main')
 
@@ -13,7 +13,7 @@
 
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Edit SR</h4>
+                        <h4 class="card-title">Edit Admin</h4>
                         <!-- <p class="card-category">Complete your profile</p> -->
                     </div>
                     <div class="card-body">
@@ -24,7 +24,7 @@
                                     <!-- <legend class="w-50 text-center main-title"><small class="text-uppercase font-weight-bold ">Personal Information</small></legend>  -->
 
                                     <div class="form-row">
-                                        <div class="col-md-4 mb-6">
+                                        {{-- <div class="col-md-4 mb-6">
                                             <label for="validationServer013">Warehouse</label>
                                             <select class="form-control" id="paymentType" required="" name="warehouse">
                                                 <option value="{{ $sr->warehouse }}">{{ $sr->warehouse ? \App\Models\Warehouse::find($sr->warehouse)->name : 'Select a Warehouse' }}</option>
@@ -33,12 +33,17 @@
                                                 @endforeach
                                             </select>
 
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mb-6">
                                             <label for="validationServer013">Name</label>
                                             <span class="requierd-star"></span>
                                             <span class="bmd-form-group"><input type="text" class="form-control" required="" name="srName" placeholder="Name" value="{{ $sr->name }}"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mb-6">
+                                            <label for="validationServer013">Designation</label>
+                                            <span class="bmd-form-group"><input type="text" class="form-control" required="" name="srAddress" placeholder="Address" value="{{ $sr->srAddress }}"></span>
                                         </div>
 
                                         <div class="col-md-4 mb-6">
@@ -53,7 +58,7 @@
                                             <span class="bmd-form-group"><input type="text" class="form-control" required="" name="srEmail" placeholder="E-mail Address" value="{{ $sr->email }}"></span>
                                         </div>
 
-                                        <div class="col-md-4 mb-6">
+                                        {{-- <div class="col-md-4 mb-6">
                                             <label for="validationServer013">Address</label>
                                             <span class="bmd-form-group"><input type="text" class="form-control" required="" name="srAddress" placeholder="Address" value="{{ $sr->srAddress }}"></span>
                                         </div>
@@ -72,9 +77,9 @@
                                                 <option value="Masters">Masters</option>
                                             </select>
 
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4 mb-6">
+                                        {{-- <div class="col-md-4 mb-6">
 
                                             <label for="comments">
                                                 Certificate
@@ -86,12 +91,12 @@
                                             <small>Resize your photo (width:180px X height:250px)</small>
                                             <div class="invalid-feedback"></div>
 
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4 mb-6">
+                                        {{-- <div class="col-md-4 mb-6">
 
                                             <label for="comments">
-                                                SR Photo
+                                                Admin Photo
                                             </label>
                                             <div class="custom-file b-form-file b-custom-control-sm" id="__BVID__104__BV_file_outer_">
                                                 <input type="file" accept=".jpg, .png" class="custom-file-input" id="__BVID__104" name="image">
@@ -100,7 +105,7 @@
                                             <small>Resize your photo (width:180px X height:250px)</small>
                                             <div class="invalid-feedback"></div>
 
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-4 mb-6">
                                             <label for="validationServer013">Password</label>
                                             <span class="bmd-form-group"><input type="text" class="form-control" name="password" placeholder="******"></span>

@@ -67,7 +67,9 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +171,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -231,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'View' => Illuminate\Support\Facades\View::class,
+       'socialite'=> Laravel\Socialite\Facades\Socialite::class,
 
     ],
 
